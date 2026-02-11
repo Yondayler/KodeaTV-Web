@@ -1,0 +1,13 @@
+{
+  "name": "kodeotv-landing-page",
+  "version": "1.0.0",
+  "description": "Landing page de KodeoTV",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve .",
+    "build": "echo 'No build step required for static HTML'"
+  },
+  "keywords": [],
+  "author": "Kodeo C.A.",
+  "license": "ISC"
+}

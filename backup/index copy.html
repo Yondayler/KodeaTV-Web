@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KODEO TV - Stay on top of every task</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+        }
+
+        .bg-hero-gradient {
+            background: linear-gradient(180deg, #40A4E8 0%, #7AC3F3 40%, #EBF6FF 85%, #FFFFFF 100%);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-slate-900 overflow-x-hidden p-3 md:p-6">
+
+    <!-- Wrapper con bordes redondeados y efecto de ventana -->
+    <div
+        class="relative min-h-[900px] bg-hero-gradient rounded-[40px] md:rounded-[60px] flex flex-col items-center shadow-sm overflow-hidden border border-slate-100">
+
+        <!-- Navbar -->
+        <nav class="w-full max-w-7xl px-8 py-8 flex justify-between items-center z-50">
+            <div class="flex items-center gap-3">
+                <!-- Contenido removido por solicitud del usuario -->
+            </div>
+
+            <div class="flex items-center gap-6">
+                <!-- Branding removido por solicitud del usuario -->
+            </div>
+        </nav>
+
+        <!-- Hero Content -->
+        <main class="flex-1 flex flex-col items-center justify-start pt-16 md:pt-24 px-4 text-center z-10">
+
+            <!-- Badges -->
+            <div class="flex flex-col items-center gap-5 mb-10">
+                <div
+                    class="bg-[#F8E12E] text-slate-900 px-3.5 py-1.5 rounded-md text-[11px] font-extrabold flex items-center gap-2 tracking-[0.15em] uppercase shadow-lg">
+                    Swap Hero
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m7 15 5 5 5-5" />
+                        <path d="m7 9 5-5 5 5" />
+                    </svg>
+                </div>
+                <div
+                    class="glass text-white/90 px-6 py-2 rounded-full text-[11px] font-bold tracking-[0.2em] uppercase">
+                    Coming Soon
+                </div>
+            </div>
+
+            <!-- Main Heading -->
+            <h1
+                class="text-white text-5xl md:text-[84px] font-[900] leading-[1.05] tracking-tight max-w-5xl mb-8 drop-shadow-sm">
+                Stay on top of every <br class="hidden md:block"> task, effortlessly
+            </h1>
+
+            <!-- Subheading -->
+            <p class="text-white/85 text-xl md:text-2xl max-w-2xl mb-12 font-medium tracking-tight leading-relaxed">
+                Simplify your workflow, collaborate with your team, <br class="hidden md:block"> and get more done — all
+                in one app.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-5 mb-24">
+                <button
+                    class="btn-primary bg-white text-slate-800 px-10 py-5 rounded-full font-bold tracking-wider shadow-xl text-[13px] uppercase">
+                    Download Now
+                </button>
+                <button
+                    class="btn-primary glass text-white px-10 py-5 rounded-full font-bold tracking-wider text-[13px] uppercase">
+                    Learn More
+                </button>
+            </div>
+
+            <!-- iPhone Mockup -->
+            <div class="relative w-full max-w-4xl mx-auto mt-auto flex justify-center">
+                <div
+                    class="w-[320px] md:w-[450px] h-[500px] bg-[#0A0D14] rounded-t-[50px] border-[8px] border-[#1C1F26] shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.5)] relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                    <div
+                        class="absolute top-4 left-1/2 -translate-x-1/2 w-32 h-7 bg-black rounded-full border border-white/5">
+                    </div>
+                    <div class="w-full h-full pt-16 px-6">
+                        <div class="w-full h-full bg-blue-100/10 rounded-t-3xl border border-white/5 backdrop-blur-sm">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

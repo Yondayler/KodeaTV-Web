@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KODEO C.A</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            /* Fondo gris claro estilo Nearo */
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        .bg-hero-gradient {
+            background:
+                radial-gradient(circle at 15% 70%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(255, 255, 255, 0.6) 0%, transparent 40%),
+                linear-gradient(180deg, #5BB5F0 0%, #7AC3F3 50%, #5BB5F0 100%);
+        }
+
+        .bg-footer-clean {
+            background: linear-gradient(180deg, #5BB5F0 0%, #7AC3F3 50%, #5BB5F0 100%);
+        }
+
+        .text-gradient {
+            background: linear-gradient(180deg, #40A4E8 0%, #7AC3F3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-tv-gradient {
+            background: linear-gradient(180deg, #40A4E8 0%, #7AC3F3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-primary {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Estilo para las tarjetas de Features/Nosotros */
+        .feature-card {
+            background: #ffffff;
+            border-radius: 2rem;
+            padding: 3rem;
+            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animación ultra-precisa estilo Nearo */
+        [data-aos="nearo-reveal"] {
+            opacity: 0;
+            transform: translateY(50px);
+            transition-property: transform, opacity;
+        }
+
+        [data-aos="nearo-reveal"].aos-animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Línea de pasos estilo Nearo */
+        .step-line {
+            width: 2px;
+            background: repeating-linear-gradient(to bottom, #40A4E8 0, #40A4E8 8px, transparent 8px, transparent 16px);
+        }
+
+        /* Carrusel Infinito (Marquee) Estilo Nearo */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-100% - 2rem));
+            }
+        }
+
+        .marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 40s linear infinite;
+        }
+
+        .marquee:hover {
+            animation-play-state: paused;
+        }
+
+        .team-card {
+            background: transparent;
+            flex-shrink: 0;
+            width: 600px;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .team-card-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #E8E8E8;
+        }
+
+        .team-card-content {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.08);
+            flex: 1;
+        }
+
+        /* Animación de levitación suave para el mockup */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Línea de Progreso Activa */
+        .progress-line-container {
+            position: absolute;
+            left: -40px;
+            top: 24px;
+            bottom: 24px;
+            width: 2px;
+            background: #f1f5f9;
+        }
+
+        .progress-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: #5BB5F0;
+            transition: height 0.1s ease-out;
+            box-shadow: 0 0 15px rgba(91, 181, 240, 0.5);
+        }
+
+        /* Hover 3D (Tilt) */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* Split Text Reveal */
+        .reveal-container {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            padding: 0.3em 0.1em;
+            /* Padding de seguridad arriba/abajo y lateral */
+            margin: -0.3em -0.1em;
+            /* Compensar padding para no mover el layout */
+        }
+
+        .reveal-word {
+            display: inline-block;
+            padding-right: 0.05em;
+            /* Prevenir corte en itálicas */
+            transform: translateY(110%);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-word.active {
+            transform: translateY(0);
+        }
+
+        /* Botón Magnético */
+        .magnetic-wrap {
+            display: inline-block;
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Asegurar que el mockup esté oculto inicialmente */
+        .parallax-img {
+            will-change: transform;
+        }
+
+        /* Footer Links */
+        .footer-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        /* FAQ Accordion Styles */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+        }
+
+        .faq-item.active .faq-content {
+            max-height: 1000px;
+            transition: max-height 1s ease-in-out;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .mockup-hidden {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .mockup-hidden.aos-animate {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+    </style>
+</head>
+
+<body class="text-slate-900 overflow-x-hidden p-4 md:p-8 space-y-6 md:space-y-10">
+
+    <!-- HERO SECTION (VENTANA FLOTANTE) -->
+    <header
+        class="relative min-h-[750px] bg-hero-gradient rounded-[32px] md:rounded-[48px] flex flex-col items-center shadow-sm overflow-hidden">
+        <!-- Navbar Limpio -->
+        <nav class="w-full max-w-7xl px-8 py-8 flex justify-between items-center z-50">
+            <div class="flex items-center gap-3"></div>
+            <div class="flex items-center gap-6"></div>
+        </nav>
+
+        <div class="flex-1 flex flex-col items-center justify-start px-4 text-center z-10 pt-20">
+            <div class="bg-[#F8E12E] text-slate-900 px-4 py-2 rounded-md text-[10px] font-extrabold flex items-center gap-2 tracking-[0.2em] uppercase shadow-lg mb-10"
+                data-aos="zoom-in" data-aos-delay="400">
+                Próximamente en iOS y Android
+            </div>
+
+            <h1
+                class="text-white text-5xl md:text-[84px] font-extrabold leading-[1.2] md:leading-[1.1] tracking-tight max-w-5xl mb-8 antialiased reveal-text">
+                Domina cada materia, sin esfuerzo
+            </h1>
+
+            <p class="text-white/85 text-xl md:text-2xl max-w-2xl mb-12 font-medium tracking-tight leading-relaxed"
+                data-aos="fade-up" data-aos-delay="800">
+                Simplificamos el aprendizaje académico, conectando <br class="hidden md:block"> tu formación con el
+                futuro digital.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-5" data-aos="fade-up" data-aos-delay="1000">
+                <div class="magnetic-wrap">
+                    <button id="magnetic-btn"
+                        class="btn-primary bg-white text-slate-800 px-10 py-5 rounded-full font-medium tracking-wider text-[13px] uppercase">
+                        Accede a la Plataforma
+                    </button>
+                </div>
+                <button
+                    class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-10 py-5 rounded-full font-medium tracking-wider text-[13px] uppercase hover:bg-white/20 transition-all">
+                    Explora Más
+                </button>
+            </div>
+            <!-- Mockup Decorativo -->
+            <div class="w-full max-w-5xl flex justify-center mt-20 mb-[-350px] mockup-hidden" data-aos="fade-up"
+                data-aos-offset="200" data-aos-duration="1000" data-aos-once="true">
+                <img src="./assets/COMPLETO.png" alt="Kodeo TV App Mockup"
+                    class="w-auto h-[1100px] object-contain drop-shadow-2xl float-animation">
+            </div>
+        </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-8 py-32 md:py-48 bg-[#FBFBFB] rounded-[48px] my-12" data-aos="fade-up">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2
+                class="text-5xl md:text-8xl font-medium text-slate-900 tracking-tighter leading-[1.2] md:leading-[1.1] mb-12 antialiased italic reveal-text">
+                Contenido diseñado para tu éxito.
+            </h2>
+            <p
+                class="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto opacity-80 reveal-text">
+                Kodeo TV es la plataforma de streaming educativo diseñada para que domines
+                cada materia con contenido de alta calidad, organizado y accesible en
+                cualquier momento.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: ¿QUÉ ES KODEOTV? (Parallax Interface) -->
+    <section class="max-w-7xl mx-auto px-8 py-32 overflow-hidden">
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <!-- Texto Directo (Ajustado) -->
+            <div class="lg:w-2/5 w-full" data-aos="fade-right">
+                <h2
+                    class="text-4xl md:text-7xl font-bold text-slate-900 tracking-tighter leading-tight mb-8 reveal-text italic fast-stagger">
+                    ¿Qué es <br> KodeoTV?
+                </h2>
+                <div class="space-y-6 text-slate-500 text-xl leading-relaxed opacity-90">
+                    <p class="reveal-text fast-stagger text-justify">
+                        Es la plataforma de aprendizaje educativo líder para <span
+                            class="text-blue-600 font-bold">universidades y bachillerato</span>. Un ecosistema digital
+                        diseñado para modernizar la enseñanza y centralizar el conocimiento.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Interfaz Equilibrada sin Sombras -->
+            <div class="lg:w-1/2 w-full relative group" data-aos="fade-left">
+                <div class="relative z-10 transition-transform duration-500 overflow-visible">
+                    <img src="./assets/homescreen.png" alt="KodeoTV Home Screen"
+                        class="parallax-img w-full h-auto shadow-none rounded-3xl block border-none">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SECCIÓN: MISIÓN Y VISIÓN (The Connection) -->
+    <section class="max-w-7xl mx-auto px-8 py-32 relative overflow-visible">
+        <!-- Vínculo Visual Decorativo (Desktop) -->
+        <div
+            class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-32 -z-10 pointer-events-none">
+            <svg width="100%" height="100%" viewBox="0 0 1000 100" fill="none" class="opacity-30">
+                <path d="M0 50C250 50 250 50 500 50C750 50 750 50 1000 50" stroke="url(#paint0_linear)" stroke-width="2"
+                    stroke-dasharray="12 12">
+                    <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.5s" repeatCount="indefinite" />
+                </path>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="0" y1="50" x2="1000" y2="50" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#3B82F6" stop-opacity="0" />
+                        <stop offset="0.5" stop-color="#3B82F6" />
+                        <stop offset="1" stop-color="#3B82F6" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
+            <!-- MISIÓN -->
+            <div class="tilt-card p-12 rounded-[40px] bg-white/40 backdrop-blur-3xl border border-white/20 shadow-2xl relative group"
+                data-aos="fade-up">
+                <div
+                    class="absolute -top-6 -left-6 w-20 h-20 bg-blue-600 rounded-3xl flex items-center justify-center shadow-lg transform -rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                    <i class="fas fa-bullseye text-white text-3xl"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-slate-900 mb-6 italic reveal-text fast-stagger">Misión</h3>
+                <p class="text-slate-600 text-xl leading-relaxed reveal-text fast-stagger text-justify italic">
+                    Brindar a los estudiantes universitarios una plataforma digital que facilite el acceso a contenidos
+                    académicos de calidad, fortaleciendo el aprendizaje autónomo y visual.
+                </p>
+                <!-- Glow decorativo -->
+                <div
+                    class="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-200/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+            </div>
+
+            <!-- VISIÓN -->
+            <div class="tilt-card p-12 rounded-[40px] bg-white/40 backdrop-blur-3xl border border-white/20 shadow-2xl relative group"
+                data-aos="fade-up" data-aos-delay="200">
+                <div
+                    class="absolute -top-6 -right-6 w-20 h-20 bg-slate-900 rounded-3xl flex items-center justify-center shadow-lg transform rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                    <i class="fas fa-eye text-white text-3xl"></i>
+                </div>
+                <h3 class="text-3xl font-bold text-slate-900 mb-6 italic reveal-text fast-stagger text-right">Visión
+                </h3>
+                <p class="text-slate-600 text-xl leading-relaxed reveal-text fast-stagger text-justify italic">
+                    Ser la principal referencia en educación digital universitaria en Venezuela, expandiendo nuestra
+                    presencia a otras regiones y consolidando alianzas estratégicas.
+                </p>
+                <!-- Glow decorativo -->
+                <div
+                    class="absolute -bottom-10 -left-10 w-32 h-32 bg-slate-400/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SECCIÓN 3: PRODUCTO (Sticky Steps estilo Nearo) -->
+    <section class="max-w-7xl mx-auto px-8 py-32 md:py-48">
+        <div class="flex flex-col lg:flex-row gap-20">
+            <!-- Columna Izquierda (Sticky) -->
+            <div class="lg:w-1/3 mb-16 lg:mb-0" data-aos="fade-right">
+                <h2
+                    class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tighter leading-[1.2] md:leading-[1.1] antialiased italic reveal-text">
+                    Domina el éxito en 3 simples pasos.
+                </h2>
+                <p class="mt-8 text-slate-500 text-lg font-medium opacity-80 max-w-sm">
+                    Explora Kodeo TV, la plataforma diseñada para mantener tu aprendizaje organizado y en marcha.
+                </p>
+            </div>
+
+            <!-- Columna Derecha (Scrolling Steps) -->
+            <div class="lg:w-2/3 relative">
+                <!-- Línea Conectora Vertical (Solo visible en LG+) -->
+                <div class="hidden lg:block progress-line-container">
+                    <div id="progress-fill" class="progress-line-fill"></div>
+                </div>
+
+                <div class="space-y-12">
+                    <!-- Paso 1 -->
+                    <div class="relative pl-0 lg:pl-10" data-aos="fade-up">
+                        <!-- Círculo de Número (LG+) -->
+                        <div
+                            class="hidden lg:flex absolute left-[-56px] top-2 w-8 h-8 rounded-full bg-slate-900 text-white items-center justify-center text-xs font-bold z-10 shadow-lg">
+                            1</div>
+
+                        <div
+                            class="bg-[#F7F7F7] rounded-[48px] p-8 md:p-12 transition-all hover:bg-[#F2F2F2] tilt-card">
+                            <div
+                                class="flex items-center justify-center mb-10 md:mb-16 h-[250px] md:h-[400px] overflow-visible">
+                                <img src="./assets/ACCESOOFFLINE.png" alt="Acceso Offline"
+                                    class="parallax-img w-auto h-full md:h-[540px] object-contain max-w-full md:max-w-none flex-shrink-0 drop-shadow-3xl">
+                            </div>
+                            <h3 class="text-3xl font-medium text-slate-900 mb-4 tracking-tight text-center">Acceso
+                                Offline</h3>
+                            <p class="text-slate-500 text-lg leading-relaxed text-center mx-auto max-w-md">Descarga tus
+                                clases en segundos y
+                                visualízalas sin depender de una conexión a internet.</p>
+                        </div>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="relative pl-0 lg:pl-10" data-aos="fade-up" data-aos-delay="200">
+                        <div
+                            class="hidden lg:flex absolute left-[-56px] top-2 w-8 h-8 rounded-full bg-slate-900 text-white items-center justify-center text-xs font-bold z-10 shadow-lg">
+                            2</div>
+
+                        <div
+                            class="bg-[#F7F7F7] rounded-[48px] p-8 md:p-12 transition-all hover:bg-[#F2F2F2] tilt-card">
+                            <div
+                                class="flex items-center justify-center mb-10 md:mb-16 h-[250px] md:h-[400px] overflow-visible">
+                                <img src="./assets/ORGANIZADO.png" alt="Orden Inteligente"
+                                    class="parallax-img w-auto h-full md:h-[540px] object-contain max-w-full md:max-w-none flex-shrink-0 drop-shadow-3xl">
+                            </div>
+                            <h3 class="text-3xl font-medium text-slate-900 mb-4 tracking-tight text-center">Orden
+                                Inteligente</h3>
+                            <p class="text-slate-500 text-lg leading-relaxed text-center mx-auto max-w-md">Contenido
+                                organizado por semestre, materia
+                                y unidad. Encuentra lo que buscas al instante.</p>
+                        </div>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="relative pl-0 lg:pl-10" data-aos="fade-up" data-aos-delay="400">
+                        <div
+                            class="hidden lg:flex absolute left-[-56px] top-2 w-8 h-8 rounded-full bg-slate-900 text-white items-center justify-center text-xs font-bold z-10 shadow-lg">
+                            3</div>
+
+                        <div
+                            class="bg-[#F7F7F7] rounded-[48px] p-8 md:p-12 transition-all hover:bg-[#F2F2F2] tilt-card">
+                            <div
+                                class="flex items-center justify-center mb-10 md:mb-16 h-[250px] md:h-[400px] overflow-visible">
+                                <img src="./assets/VALIDACION.png" alt="Validación Académica"
+                                    class="parallax-img w-auto h-full md:h-[380px] object-contain max-w-full md:max-w-none flex-shrink-0 drop-shadow-3xl">
+                            </div>
+                            <h3 class="text-3xl font-medium text-slate-900 mb-4 tracking-tight text-center">Validación
+                                Académica</h3>
+                            <p class="text-slate-500 text-lg leading-relaxed text-center mx-auto max-w-md">Cada recurso
+                                audiovisual es revisado por
+                                expertos para garantizar excelencia universitaria.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN FAQ -->
+    <section class="max-w-4xl mx-auto px-8 py-32" data-aos="fade-up">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-6xl font-bold text-slate-900 tracking-tighter leading-tight reveal-text italic">
+                Preguntas frecuentes.
+            </h2>
+            <p class="text-slate-500 text-lg mt-4 opacity-80">Todo lo que necesitas saber sobre KodeoTV.</p>
+        </div>
+
+        <div class="space-y-4">
+            <!-- Pregunta 1 -->
+            <div
+                class="faq-item border border-slate-200 rounded-2xl overflow-hidden bg-white hover:border-blue-200 transition-colors">
+                <button class="w-full px-8 py-6 text-left flex justify-between items-center bg-transparent group"
+                    onclick="this.parentElement.classList.toggle('active')">
+                    <span class="font-bold text-slate-900 text-lg group-hover:text-blue-600 transition-colors">¿Cómo
+                        accedo a los cursos?</span>
+                    <i class="fas fa-chevron-down faq-icon text-slate-400 group-hover:text-blue-600"></i>
+                </button>
+                <div class="faq-content">
+                    <div class="px-8 pb-8 text-slate-500 leading-relaxed">
+                        Acceder es muy sencillo. Solo necesitas una suscripción activa y podrás disfrutar de todo
+                        nuestro contenido de forma ilimitada desde cualquier dispositivo con conexión a internet. Una
+                        vez registrado, tendrás tu panel personal con tus cursos y progreso.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div
+                class="faq-item border border-slate-200 rounded-2xl overflow-hidden bg-white hover:border-blue-200 transition-colors">
+                <button class="w-full px-8 py-6 text-left flex justify-between items-center bg-transparent group"
+                    onclick="this.parentElement.classList.toggle('active')">
+                    <span class="font-bold text-slate-900 text-lg group-hover:text-blue-600 transition-colors">¿Qué
+                        dispositivos son compatibles?</span>
+                    <i class="fas fa-chevron-down faq-icon text-slate-400 group-hover:text-blue-600"></i>
+                </button>
+                <div class="faq-content">
+                    <div class="px-8 pb-8 text-slate-500 leading-relaxed">
+                        KodeoTV está optimizado para funcionar en cualquier lugar. Puedes acceder desde tu navegador web
+                        en PC o Mac, y descargar nuestra aplicación oficial disponible tanto para iOS en la App Store
+                        como para Android en la Google Play Store.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div
+                class="faq-item border border-slate-200 rounded-2xl overflow-hidden bg-white hover:border-blue-200 transition-colors">
+                <button class="w-full px-8 py-6 text-left flex justify-between items-center bg-transparent group"
+                    onclick="this.parentElement.classList.toggle('active')">
+                    <span class="font-bold text-slate-900 text-lg group-hover:text-blue-600 transition-colors">¿Recibiré
+                        un certificado?</span>
+                    <i class="fas fa-chevron-down faq-icon text-slate-400 group-hover:text-blue-600"></i>
+                </button>
+                <div class="faq-content">
+                    <div class="px-8 pb-8 text-slate-500 leading-relaxed">
+                        ¡Por supuesto! Al completar satisfactoriamente cada curso o ruta de aprendizaje, recibirás un
+                        certificado digital avalado por Kodeo C.A. que podrás compartir en tu perfil de LinkedIn o
+                        descargar para tu currículo.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div
+                class="faq-item border border-slate-200 rounded-2xl overflow-hidden bg-white hover:border-blue-200 transition-colors">
+                <button class="w-full px-8 py-6 text-left flex justify-between items-center bg-transparent group"
+                    onclick="this.parentElement.classList.toggle('active')">
+                    <span class="font-bold text-slate-900 text-lg group-hover:text-blue-600 transition-colors">¿Cuáles
+                        son los métodos de pago?</span>
+                    <i class="fas fa-chevron-down faq-icon text-slate-400 group-hover:text-blue-600"></i>
+                </button>
+                <div class="faq-content">
+                    <div class="px-8 pb-8 text-slate-500 leading-relaxed">
+                        Aceptamos una amplia variedad de métodos para tu comodidad: tarjetas de crédito/débito
+                        internacionales, PayPal, transferencias bancarias nacionales y Pago Móvil. Queremos que el
+                        acceso a la educación sea lo más fácil posible para ti.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div
+                class="faq-item border border-slate-200 rounded-2xl overflow-hidden bg-white hover:border-blue-200 transition-colors">
+                <button class="w-full px-8 py-6 text-left flex justify-between items-center bg-transparent group"
+                    onclick="this.parentElement.classList.toggle('active')">
+                    <span class="font-bold text-slate-900 text-lg group-hover:text-blue-600 transition-colors">¿Puedo
+                        ver contenido offline?</span>
+                    <i class="fas fa-chevron-down faq-icon text-slate-400 group-hover:text-blue-600"></i>
+                </button>
+                <div class="faq-content">
+                    <div class="px-8 pb-8 text-slate-500 leading-relaxed">
+                        Sí, entendemos que no siempre tienes conexión. En nuestra aplicación móvil puedes descargar las
+                        clases para verlas en cualquier momento sin consumir tus datos, ideal para estudiar durante
+                        viajes o en zonas con poca señal.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 4: EQUIPO (Carrusel Infinito estilo Nearo) -->
+    <section class="py-32 overflow-hidden bg-[#FBFBFB]">
+        <div class="max-w-7xl mx-auto px-8 text-center mb-20" data-aos="fade-up">
+            <h2
+                class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tighter leading-[0.95] antialiased italic">
+                Liderazgo con <br> visión tecnológica.
+            </h2>
+        </div>
+
+        <!-- Contenedor del Carrusel -->
+        <div class="relative flex overflow-hidden">
+            <div class="marquee flex gap-8 px-8">
+                <!-- Miembro 1 -->
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <img src="./assets/photos/12.svg" alt="Yondayler Flores" class="w-full h-full object-cover">
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Impulsando la
+                            transformación digital para conectar el talento universitario con las oportunidades del
+                            mañana."</p>
+                        <h4 class="font-bold text-slate-900 text-base">Yondayler Flores</h4>
+                        <p class="text-slate-400 text-sm mt-1">Presidente Ejecutivo</p>
+                    </div>
+                </div>
+
+                <!-- Miembro 2 -->
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <img src="./assets/photos/13.svg" alt="Oscar Agudelo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Garantizando una
+                            operatividad fluida para que nuestros servicios lleguen a cada rincón de la universidad."
+                        </p>
+                        <h4 class="font-bold text-slate-900 text-base">Oscar Agudelo</h4>
+                        <p class="text-slate-400 text-sm mt-1">Director de
+                            Operaciones</p>
+                    </div>
+                </div>
+
+                <!-- Miembro 3 -->
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <img src="./assets/photos/14.svg" alt="Nixon Ochoa" class="w-full h-full object-cover">
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Arquitectando el
+                            ecosistema tecnológico de Kodeo TV basándonos en escalabilidad y seguridad de datos."</p>
+                        <h4 class="font-bold text-slate-900 text-base">Nixon Ochoa</h4>
+                        <p class="text-slate-400 text-sm mt-1">Director de
+                            Tecnología</p>
+                    </div>
+                </div>
+
+                <!-- Miembro 4 -->
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <img src="./assets/photos/15.svg" alt="Felix Vegas" class="w-full h-full object-cover">
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Construyendo una
+                            marca que resuene con la nueva generación de estudiantes digitales en el país."</p>
+                        <h4 class="font-bold text-slate-900 text-base">Felix Vegas</h4>
+                        <p class="text-slate-400 text-sm mt-1">Director de
+                            Marketing</p>
+                    </div>
+                </div>
+
+                <!-- Miembro 5 -->
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <div class="w-full h-full flex items-center justify-center text-slate-400">
+                            <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Fomentando
+                            alianzas estratégicas para expandir el impacto académico de nuestra plataforma."</p>
+                        <h4 class="font-bold text-slate-900 text-base">Yeison Polanco</h4>
+                        <p class="text-slate-400 text-sm mt-1">Relaciones
+                            Institucionales</p>
+                    </div>
+                </div>
+
+                <!-- DUPLICADOS PARA CARRUSEL INFINITO (Para un flujo continuo sin saltos) -->
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <img src="./assets/photos/12.svg" alt="Yondayler Flores" class="w-full h-full object-cover">
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Impulsando la
+                            transformación digital para conectar el talento universitario con las oportunidades del
+                            mañana."</p>
+                        <h4 class="font-bold text-slate-900 text-base">Yondayler Flores</h4>
+                        <p class="text-slate-400 text-sm mt-1">Presidente
+                            Ejecutivo</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <img src="./assets/photos/13.svg" alt="Oscar Agudelo" class="w-full h-full object-cover">
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Garantizando una
+                            operatividad fluida para que nuestros servicios lleguen a cada rincón de la universidad."
+                        </p>
+                        <h4 class="font-bold text-slate-900 text-base">Oscar Agudelo</h4>
+                        <p class="text-slate-400 text-sm mt-1">Director de
+                            Operaciones</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <img src="./assets/photos/14.svg" alt="Nixon Ochoa" class="w-full h-full object-cover">
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Arquitectando el
+                            ecosistema tecnológico de Kodeo TV basándonos en escalabilidad y seguridad de datos."</p>
+                        <h4 class="font-bold text-slate-900 text-base">Nixon Ochoa</h4>
+                        <p class="text-slate-400 text-sm mt-1">Director de
+                            Tecnología</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <img src="./assets/photos/15.svg" alt="Felix Vegas" class="w-full h-full object-cover">
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Construyendo una
+                            marca que resuene con la nueva generación de estudiantes digitales en el país."</p>
+                        <h4 class="font-bold text-slate-900 text-base">Felix Vegas</h4>
+                        <p class="text-slate-400 text-sm mt-1">Director de
+                            Marketing</p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <div class="team-card-image">
+                        <div class="w-full h-full flex items-center justify-center text-slate-400">
+                            <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="team-card-content">
+                        <p class="text-slate-900 text-lg font-medium leading-relaxed mb-6">"Fomentando
+                            alianzas estratégicas para expandir el impacto académico de nuestra plataforma."</p>
+                        <h4 class="font-bold text-slate-900 text-base">Yeison Polanco</h4>
+                        <p class="text-slate-400 text-sm mt-1">Relaciones
+                            Institucionales</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PREMIUM TRADICIONAL -->
+    <footer class="w-full bg-footer-clean text-white relative overflow-hidden" data-aos="fade-up">
+        <div class="max-w-7xl mx-auto px-8 py-20 relative z-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
+                <!-- Columna 1: Info -->
+                <div class="flex flex-col gap-6 text-center md:text-left items-center md:items-start">
+                    <span class="font-black text-3xl uppercase tracking-tighter">Kodeo TV</span>
+                    <p class="text-white/90 text-sm leading-relaxed max-w-xs font-medium">
+                        La plataforma líder en streaming académico. Domina cualquier materia con contenido de alta
+                        calidad diseñado para tu éxito profesional.
+                    </p>
+                    <div class="flex gap-4 mt-4">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-all">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Plataforma -->
+                <div class="flex flex-col gap-6 text-center md:text-left items-center md:items-start">
+                    <h4 class="font-bold text-lg">Plataforma</h4>
+                    <ul class="flex flex-col gap-4 text-white/80 text-sm font-medium">
+                        <li><a href="#" class="footer-link">Cursos Online</a></li>
+                        <li><a href="#" class="footer-link">Streaming TV</a></li>
+                        <li><a href="#" class="footer-link">Recursos PDF</a></li>
+                        <li><a href="#" class="footer-link">Certificaciones</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: Comunidad -->
+                <div class="flex flex-col gap-6 text-center md:text-left items-center md:items-start">
+                    <h4 class="font-bold text-lg">Comunidad</h4>
+                    <ul class="flex flex-col gap-4 text-white/80 text-sm font-medium">
+                        <li><a href="#" class="footer-link">Foros de Discusión</a></li>
+                        <li><a href="#" class="footer-link">Eventos en Vivo</a></li>
+                        <li><a href="#" class="footer-link">Mentores</a></li>
+                        <li><a href="#" class="footer-link">Blog Académico</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 4: Legal -->
+                <div class="flex flex-col gap-6 text-center md:text-left items-center md:items-start">
+                    <h4 class="font-bold text-lg">Legal</h4>
+                    <ul class="flex flex-col gap-4 text-white/80 text-sm font-medium">
+                        <li><a href="#" class="footer-link">Privacidad</a></li>
+                        <li><a href="#" class="footer-link">Términos de Uso</a></li>
+                        <li><a href="#" class="footer-link">Cookies</a></li>
+                        <li><a href="#" class="footer-link">Soporte Técnico</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Línea divisora -->
+            <div class="h-px w-full bg-white/10 my-12 relative z-10"></div>
+
+            <!-- Bottom Footer -->
+            <div
+                class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8 text-white/60 text-[10px] font-black uppercase tracking-[0.4em] text-center md:text-left">
+                <div class="flex gap-8">
+                    <span>San Juan de los Morros</span>
+                    <span>2026</span>
+                </div>
+                <div class="flex gap-8">
+                    <span>© KODEO C.A. TODOS LOS DERECHOS RESERVADOS</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 400,
+            easing: 'cubic-bezier(0.12, 0.23, 0.5, 1)',
+            once: true,
+            offset: 50
+        });
+
+        // --- ANIMACIONES PREMIUM KODEO ---
+
+        // 1. Reveal Text (Split words)
+        document.querySelectorAll('.reveal-text').forEach(el => {
+            const words = el.innerText.split(' ');
+            el.innerHTML = words.map(word => `<span class="reveal-container"><span class="reveal-word">${word}</span></span>`).join(' ');
+        });
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.classList.contains('fast-stagger') ? 50 : 100;
+                    entry.target.querySelectorAll('.reveal-word').forEach((word, i) => {
+                        setTimeout(() => word.classList.add('active'), i * delay);
+                    });
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.reveal-text').forEach(el => revealObserver.observe(el));
+
+        // 2. Línea de Progreso & Parallax
+        window.addEventListener('scroll', () => {
+            // Línea de progreso (específica para la sección de pasos)
+            const stepsSection = document.querySelector('.lg\\:w-2\\/3.relative');
+            if (stepsSection) {
+                const rect = stepsSection.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                const progress = Math.max(0, Math.min(100, ((windowHeight / 2 - rect.top) / rect.height) * 100));
+                document.getElementById('progress-fill').style.height = `${progress}%`;
+            }
+
+            // Parallax Global (para todas las imágenes con .parallax-img)
+            const windowHeight = window.innerHeight;
+            document.querySelectorAll('.parallax-img').forEach(img => {
+                const imgRect = img.getBoundingClientRect();
+                const offset = (windowHeight / 2 - imgRect.top - imgRect.height / 2) * 0.1;
+                img.style.transform = `translateY(${offset}px)`;
+            });
+        });
+
+        // 3. Hover 3D (Tilt)
+        document.querySelectorAll('.tilt-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+                const dx = x - xc;
+                const dy = y - yc;
+                card.style.transform = `perspective(1000px) rotateX(${-dy / 20}deg) rotateY(${dx / 20}deg) scale3d(1.02, 1.02, 1.02)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // 4. Botón Magnético
+        const magBtn = document.getElementById('magnetic-btn');
+        const magWrap = magBtn.parentElement;
+        magWrap.addEventListener('mousemove', (e) => {
+            const rect = magWrap.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            magBtn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            magWrap.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+        });
+        magWrap.addEventListener('mouseleave', () => {
+            magBtn.style.transform = `translate(0, 0)`;
+            magWrap.style.transform = `translate(0, 0)`;
+        });
+    </script>
+
+</body>
+
+</html>
