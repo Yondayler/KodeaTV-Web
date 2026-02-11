@@ -904,13 +904,19 @@
                 document.getElementById('progress-fill').style.height = `${progress}%`;
             }
 
-            // Parallax Global (para todas las imágenes con .parallax-img)
-            const windowHeight = window.innerHeight;
-            document.querySelectorAll('.parallax-img').forEach(img => {
-                const imgRect = img.getBoundingClientRect();
-                const offset = (windowHeight / 2 - imgRect.top - imgRect.height / 2) * 0.1;
-                img.style.transform = `translateY(${offset}px)`;
-            });
+            // Parallax Global (solo en desktop >= 1024px)
+            if (window.innerWidth >= 1024) {
+                document.querySelectorAll('.parallax-img').forEach(img => {
+                    const imgRect = img.getBoundingClientRect();
+                    const offset = (window.innerHeight / 2 - imgRect.top - imgRect.height / 2) * 0.1;
+                    img.style.transform = `translateY(${offset}px)`;
+                });
+            } else {
+                // Resetear transformación en móvil por si hubo cambio de orientación
+                document.querySelectorAll('.parallax-img').forEach(img => {
+                    img.style.transform = 'translateY(0)';
+                });
+            }
         });
 
         // 3. Hover 3D (Tilt)
