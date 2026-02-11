@@ -4,8 +4,7 @@
   "description": "Landing page de KodeoTV",
   "main": "index.html",
   "scripts": {
-    "start": "serve .",
-    "build": "echo 'No build step required for static HTML'"
+    "start": "serve ."
   },
   "keywords": [],
   "author": "Kodeo C.A.",
